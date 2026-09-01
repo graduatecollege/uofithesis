@@ -354,10 +354,10 @@ must use these features, note the following:
 for the best results. They tag merged cells correctly. **Does not support colored cells.**
 [multirow example](https://github.com/graduatecollege/uofithesis/issues/6#issuecomment-4057268158)
 
-**If you need colored cells**, use `nicematrix` with the `\CodeBefore` option to 
-apply colors. This tags merged cells as nested tables, which is problematic,
-but is the only option that allows colored cells while still being read in a 
-somewhat logical order by screen readers. [nicematrix example](https://github.com/graduatecollege/uofithesis/issues/6#issuecomment-4041274456)
+**If you need colored cells**, you have two options:
+- Use [`colortbl`](https://ctan.org/pkg/colortbl), which is compatible as of May 11, 2026.
+- Use `nicematrix` with the `\CodeBefore` option to 
+  apply colors. This tags merged cells as nested tables, which is problematic, but otherwise works. [nicematrix example](https://github.com/graduatecollege/uofithesis/issues/6#issuecomment-4041274456)
 
 `tabularray` is **not** compatible and doesn't produce usable tables.
 
@@ -419,7 +419,7 @@ See [Issue #5](https://github.com/graduatecollege/uofithesis/issues/5) for discu
 
 ### Algorithms and Pseudocode
 
-The `algorithm` and `algpseudocode` packages are compatible with tagging and can 
+The `algorithmic`, `algorithmicx` and `algpseudocode` packages are compatible with tagging and can 
 be used for algorithms and pseudocode. [algpseudocode example](https://github.com/graduatecollege/uofithesis/issues/8#issuecomment-4057284694)
 
 ### Other Utilities
@@ -470,6 +470,11 @@ not match the visual order of the document.
 > [!NOTE]
 > Previous versions of this template used `\tagstructbegin` and `\tagstructend`
 > to manually wrap floats with `Part` elements. This is no longer necessary.
+
+> [!WARNING]
+> Figures inside `H` floats still have issues with the order of the elements,
+> so VeraPDF will alert that the document is not fully compliant with PDF/UA-2.
+> See [Current float defaults fail PDF/UA2](https://github.com/graduatecollege/uofithesis/issues/30) for discussion.
 
 ### Provide Meaningful Alt Text
 
