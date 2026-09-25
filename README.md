@@ -586,6 +586,28 @@ large documents. To speed up compilation when working on the document:
 - JAWS does not allow navigating equations in Acrobat, and reads the entire equation as one block of text.
 - Complex tables with merged cells almost always have problems being read correctly in Acrobat, even with proper header configuration.
 
+### Missing chapter numbers
+
+There is a bug in tagpdf that can cause section numbers to disappear. This happens
+if you have a `\paragraph` immediately followed by a `\subparagraph` without any intervening text.
+
+The simplest workaround is to ensure that there is some intervening text between a `\paragraph` and a `\subparagraph`.
+
+You can also try adding this to your preamble, although it doesn't seem to work for everyone:
+
+```latex
+% Flush a pending run-in heading (e.g. \paragraph) before the next heading.
+% Works around a bug where the next heading saves \c@secnumdepth
+% while it is still -99, which disables numbering for the rest of the document.
+\makeatletter
+\def\uofi@flushrunin{\if@noskipsec\leavevmode\fi}
+\AddToHook{cmd/subsection/before}{\uofi@flushrunin}
+\AddToHook{cmd/subsubsection/before}{\uofi@flushrunin}
+\AddToHook{cmd/paragraph/before}{\uofi@flushrunin}
+\AddToHook{cmd/subparagraph/before}{\uofi@flushrunin}
+\makeatother
+```
+
 ## Dissertation/Thesis Support
 
 For general requirements and other support, refer to the
