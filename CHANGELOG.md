@@ -3,6 +3,14 @@
 **Breaking changes** will be highlighted in each version, if there are any.
 Breaking change would mean a change is needed in the `.tex` file to accommodate the changes in the document class.
 
+## v1.8 - 2026-10-12
+
+### Breaking Changes
+
+- Line spacing for captions is not explicitly set to single-spaced. It was already
+  single-spaced for most figures, but some placement modifiers don't work with
+  the `setspace` package. If you want to use double spacing for captions, you will need to set it explicitly.
+
 ## v1.7 - 2026-04-21
 
 ### Breaking Changes
