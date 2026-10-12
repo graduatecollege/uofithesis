@@ -61,6 +61,12 @@
 \newif\ifdissertation
 \dissertationtrue % Default to dissertation
 \DeclareOption{thesis}{\dissertationfalse}
+
+% Figures, tables and equations are numbered by chapter unless
+% continuousnumbering is given
+\newif\ifthesis@bychapter
+\thesis@bychaptertrue
+\DeclareOption{continuousnumbering}{\thesis@bychapterfalse}
 \ProcessOptions\relax
 
 \def\@degreetext{Submitted in partial fulfillment of the requirements\\for the degree of}
@@ -212,6 +218,43 @@
 \renewcommand{\thesection}{Chapter \arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
+% Number figures, tables and equations by chapter, e.g. Figure 2.3, or by
+% appendix letter, e.g. Figure A.1. These hooks stay empty with the
+% continuousnumbering option, which numbers them 1, 2, 3... through the document.
+\newcommand{\thesis@chapternumbering}{}
+\newcommand{\thesis@appendixnumbering}{}
+\newcommand{\thesis@resetnumbering}{}
+\ifthesis@bychapter
+    % The starred form only resets the counters; \thesection includes
+    % "Chapter", so the labels are set explicitly.
+    \counterwithin*{figure}{section}
+    \counterwithin*{table}{section}
+    \counterwithin*{equation}{section}
+    \renewcommand{\thesis@chapternumbering}{%
+        \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}%
+        \renewcommand{\thetable}{\arabic{section}.\arabic{table}}%
+        \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}%
+        \renewcommand{\theHfigure}{\theHsection.\arabic{figure}}%
+        \renewcommand{\theHtable}{\theHsection.\arabic{table}}%
+        \renewcommand{\theHequation}{\theHsection.\arabic{equation}}%
+    }
+    \renewcommand{\thesis@appendixnumbering}{%
+        \renewcommand{\thefigure}{\Alph{appendix}.\arabic{figure}}%
+        \renewcommand{\thetable}{\Alph{appendix}.\arabic{table}}%
+        \renewcommand{\theequation}{\Alph{appendix}.\arabic{equation}}%
+        % Appendices don't step the section counter, so keep hyperlink targets unique
+        \renewcommand{\theHfigure}{appendix.\Alph{appendix}.\arabic{figure}}%
+        \renewcommand{\theHtable}{appendix.\Alph{appendix}.\arabic{table}}%
+        \renewcommand{\theHequation}{appendix.\Alph{appendix}.\arabic{equation}}%
+    }
+    \renewcommand{\thesis@resetnumbering}{%
+        \setcounter{figure}{0}%
+        \setcounter{table}{0}%
+        \setcounter{equation}{0}%
+    }
+\fi
+\thesis@chapternumbering
+
 % Only include chapter-level (\section) headings in the ToC.
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 \renewcommand*{\l@section}{\@dottedtocline{1}{1.5em}{5em}}
@@ -257,9 +300,11 @@
     \renewcommand{\theappendix}{\Alph{appendix}}%
     \renewcommand{\thesection}{Appendix \Alph{appendix}}%
     \renewcommand{\thesubsection}{\Alph{appendix}.\arabic{subsection}}%
+    \thesis@appendixnumbering
     \renewcommand{\section}[1]{%
         \refstepcounter{appendix}%
         \setcounter{subsection}{0}%
+        \thesis@resetnumbering
         \clearpage%
         \phantomsection%
         \addcontentsline{toc}{section}{Appendix \Alph{appendix}: ##1}%
@@ -272,6 +317,7 @@
 }{%
     \renewcommand{\thesection}{Chapter \arabic{section}}%
     \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}%
+    \thesis@chapternumbering
     \renewcommand{\section}{\@startsection{section}{1}{\z@}%
         {-3.5ex \@plus -1ex \@minus -.2ex}%
         {2.3ex \@plus.2ex}%

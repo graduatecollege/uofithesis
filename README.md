@@ -224,6 +224,19 @@ By default, the class produces a dissertation. For a master's thesis:
 \documentclass[thesis]{uofithesis}
 ```
 
+### Figure, Table and Equation Numbering
+
+By default, figures, tables and equations are decimal numbered with a chapter prefix,
+for example Figure 2.1 (in Chapter 2) or Figure A.1 (in Appendix A).
+
+To number them continuously
+through the whole document instead (Figure 1, 2, 3...), use the
+`continuousnumbering` option:
+
+```latex
+\documentclass[continuousnumbering]{uofithesis}
+```
+
 ## Package Groups and Accessibility
 
 > [!WARNING]
@@ -528,6 +541,8 @@ All sections are automatically formatted per Graduate College requirements:
 - Numbered as "Chapter N"
 - Each chapter starts on a new page
 - Sections within chapters do not start on new pages
+- Figures, tables and equations are numbered within each chapter (e.g. Figure 2.1)
+  or appendix (e.g. Figure A.1), see [Figure, Table and Equation Numbering](#figure-table-and-equation-numbering)
 
 ### Chapter References
 
