@@ -212,8 +212,8 @@
 \renewcommand{\thesection}{Chapter \arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
-% Include sections and subsections in the ToC, but exclude subsubsections.
-\AtBeginDocument{\setcounter{tocdepth}{2}}
+% Only include chapter-level (\section) headings in the ToC.
+\AtBeginDocument{\setcounter{tocdepth}{1}}
 \renewcommand*{\l@section}{\@dottedtocline{1}{1.5em}{5em}}
 \renewcommand*{\l@subsection}{\@dottedtocline{2}{3em}{2.5em}}
 

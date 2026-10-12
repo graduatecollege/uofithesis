@@ -10,6 +10,9 @@ Breaking change would mean a change is needed in the `.tex` file to accommodate 
 - Line spacing for captions is not explicitly set to single-spaced. It was already
   single-spaced for most figures, but some placement modifiers don't work with
   the `setspace` package. If you want to use double spacing for captions, you will need to set it explicitly.
+- The Table of Contents now only lists chapter titles by default; in-chapter
+  headings (`\subsection`) are no longer included. To restore the previous
+  behavior, add `\AtBeginDocument{\setcounter{tocdepth}{2}}` to your preamble.
 
 ## v1.7 - 2026-04-21
 
