@@ -5,9 +5,27 @@
 
 \RequirePackage[english]{babel}
 \RequirePackage{geometry}
+% setspace replaces the footnote code with its own (pre-tagging) version. With
+% \DocumentMetadata, LaTeX puts its tagged footnote code back at the start of
+% the document anyway, but in the meantime biblatex fails to patch footnotes
+% ("Patching footnotes failed"). Keep the kernel versions and add setspace's
+% single spacing for footnotes through the kernel's fntext hook instead.
+\let\thesis@footnotetext\@footnotetext
+\let\thesis@mpfootnotetext\@mpfootnotetext
 \RequirePackage{setspace}
+\IfDocumentMetadataTF{%
+    \let\@footnotetext\thesis@footnotetext
+    \let\@mpfootnotetext\thesis@mpfootnotetext
+    \AddToHook{fntext}{\def\baselinestretch{\setspace@singlespace}}%
+}{}
 % sectsty is partially compatible with tagging, don't use \sectionrule
+% sectsty checks that \underline and \underbar still have their 1990s
+% definitions and warns when they don't ("Command \underline has changed").
+% The checks are informational only, so skip them while loading sectsty.
+\let\thesis@CheckCommand\CheckCommand
+\let\CheckCommand\providecommand
 \RequirePackage{sectsty}
+\let\CheckCommand\thesis@CheckCommand
 \RequirePackage{float}
 
 \floatplacement{figure}{H}
