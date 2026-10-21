@@ -3,6 +3,21 @@
 **Breaking changes** will be highlighted in each version, if there are any.
 Breaking change would mean a change is needed in the `.tex` file to accommodate the changes in the document class.
 
+## v1.9 - 2026-10-21
+
+### Other Changes
+
+- The template now builds on Overleaf without changing any settings. A
+  `latexmkrc` file (the name Overleaf looks for) has been added, and both it and
+  `.latexmkrc` now make the build use LuaLaTeX even if pdfLaTeX is selected.
+  Note that selecting Rolling Release is still recommended.
+- Silenced the `Command \underline has changed` and `Command \underbar has changed`
+  warnings from `sectsty`.
+
+Credit to [@meltawila](https://github.com/meltawila) for
+these changes ([#31](https://github.com/graduatecollege/uofithesis/issues/31),
+[#32](https://github.com/graduatecollege/uofithesis/pull/32)).
+
 ## v1.8 - 2026-10-12
 
 ### Breaking Changes
