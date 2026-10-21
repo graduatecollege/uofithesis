@@ -31,12 +31,12 @@ A LaTeX document class for University of Illinois Urbana-Champaign dissertations
 
 You can use this template on Overleaf, in which case you don't need to worry about installing TeX Live locally.
 
-You **must have** a Standard, Professional, or Student license to use Overleaf, 
+You **must have** a Standard, Professional, or Student license to use Overleaf,
 as the free version times out when building documents with the tagging system enabled.
 
 1. Download the template as a ZIP file from the GitHub page.
 2. Select *New project* -> *Upload project* on Overleaf and upload the ZIP file.
-3. Open *Settings* using the gear icon in the bottom left, click the *Compiler* tab, and select "LuaLaTeX" from the *Compiler* dropdown menu.
+3. Open *Settings* using the gear icon in the bottom left, click the *Compiler* tab, and select "LuaLaTeX" from the *Compiler* dropdown menu. (The included `latexmkrc` already forces LuaLaTeX, so the document still builds if this is left on the default pdfLaTeX; selecting LuaLaTeX is still recommended.)
 4. Open `thesis.tex` and click "Recompile" to build the document.
 
 #### TeX Live Version on Overleaf
@@ -45,7 +45,7 @@ It is **highly** recommended to use [Overleaf Labs](https://www.overleaf.com/lab
 to the Rolling Release. Make sure to change
 the TeX Live version in the project settings to "Rolling Release" to use it.
 
-Rolling Release versions are updated regularly with the latest TeX Live packages, 
+Rolling Release versions are updated regularly with the latest TeX Live packages,
 which helps reduce build issues related to the tagging system.
 
 ### Local TeX Installation
@@ -62,7 +62,7 @@ Or you can download the code as a ZIP file from the GitHub page.
 > Because accessible PDF generation is so new to the LaTeX ecosystem,
 > downloading the template for your use is the most effective way
 > to ensure you can customize and build your document without issues. We
-> don't have plans to publish this class on CTAN until the tagging system 
+> don't have plans to publish this class on CTAN until the tagging system
 > is more mature and stable.
 
 ## Requirements
@@ -265,7 +265,7 @@ The Tagging Project is still under active development, and some features may be 
 > so always check the [Tagging Status of LaTeX Packages](https://latex3.github.io/tagging-project/tagging-status/)
 > before including a package in your document.
 
-`align`, `equation`, `gather`, `split`, `multline` and other `amsmath` environments 
+`align`, `equation`, `gather`, `split`, `multline` and other `amsmath` environments
 are all supported and will be tagged properly.
 
 ```latex
@@ -369,7 +369,7 @@ for the best results. They tag merged cells correctly. **Does not support colore
 
 **If you need colored cells**, you have two options:
 - Use [`colortbl`](https://ctan.org/pkg/colortbl), which is compatible as of May 11, 2026.
-- Use `nicematrix` with the `\CodeBefore` option to 
+- Use `nicematrix` with the `\CodeBefore` option to
   apply colors. This tags merged cells as nested tables, which is problematic, but otherwise works. [nicematrix example](https://github.com/graduatecollege/uofithesis/issues/6#issuecomment-4041274456)
 
 `tabularray` is **not** compatible and doesn't produce usable tables.
@@ -432,7 +432,7 @@ See [Issue #5](https://github.com/graduatecollege/uofithesis/issues/5) for discu
 
 ### Algorithms and Pseudocode
 
-The `algorithmic`, `algorithmicx` and `algpseudocode` packages are compatible with tagging and can 
+The `algorithmic`, `algorithmicx` and `algpseudocode` packages are compatible with tagging and can
 be used for algorithms and pseudocode. [algpseudocode example](https://github.com/graduatecollege/uofithesis/issues/8#issuecomment-4057284694)
 
 ### Other Utilities
@@ -456,7 +456,7 @@ Use LaTeX's sectioning commands rather than manual formatting:
 {\large\bfseries Manual Heading}
 ```
 
-The PDF output will have a `<Title>` tag for the document title, and `<H1>` tags 
+The PDF output will have a `<Title>` tag for the document title, and `<H1>` tags
 for top-level sections. This is consistent with PDF UA-2, and it is practically
 impossible to make LaTeX Tagging do anything else.
 
@@ -470,14 +470,14 @@ impossible to make LaTeX Tagging do anything else.
 
 The LaTeX Tagging system does not currently fully support floats, so most float
 environments are in the wrong order in the underlying PDF structure. That makes
-it hard for assistive technologies to read them in the correct order. The best 
-way to mitigate this is to use the `H` float specifier from the `float` package, 
+it hard for assistive technologies to read them in the correct order. The best
+way to mitigate this is to use the `H` float specifier from the `float` package,
 which places the float "here" and tags it in the correct order in the PDF structure.
 
-The `uofithesis` class includes `float` and sets `H` as the default placement 
+The `uofithesis` class includes `float` and sets `H` as the default placement
 for figures and tables, so you can just use `\begin{figure}` and `\begin{table}`.
 
-If you need to use other float specifiers, be aware that the PDF structure will 
+If you need to use other float specifiers, be aware that the PDF structure will
 not match the visual order of the document.
 
 > [!NOTE]
@@ -578,12 +578,12 @@ On Overleaf, use [Overleaf Labs](https://www.overleaf.com/labs/participate) to e
 
 #### Errors and warnings in Overleaf
 
-Enabling [Overleaf Labs](https://www.overleaf.com/labs/participate) to get access 
+Enabling [Overleaf Labs](https://www.overleaf.com/labs/participate) to get access
 to the Rolling Release can reduce build issues related to the tagging system.
 
 ### Slow To Compile
 
-The tagging system is still new and can be slow to compile, especially with 
+The tagging system is still new and can be slow to compile, especially with
 large documents. To speed up compilation when working on the document:
 
 - Remove packages from thesis.tex that you're not using, for example mhchem and chemfig

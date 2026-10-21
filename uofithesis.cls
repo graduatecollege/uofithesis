@@ -7,7 +7,13 @@
 \RequirePackage{geometry}
 \RequirePackage{setspace}
 % sectsty is partially compatible with tagging, don't use \sectionrule
+% sectsty checks that \underline and \underbar still have their 1990s
+% definitions and warns when they don't ("Command \underline has changed").
+% The checks are informational only, so skip them while loading sectsty.
+\let\thesis@CheckCommand\CheckCommand
+\let\CheckCommand\providecommand
 \RequirePackage{sectsty}
+\let\CheckCommand\thesis@CheckCommand
 \RequirePackage{float}
 
 \floatplacement{figure}{H}
