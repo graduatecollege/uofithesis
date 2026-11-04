@@ -3,6 +3,28 @@
 **Breaking changes** will be highlighted in each version, if there are any.
 Breaking change would mean a change is needed in the `.tex` file to accommodate the changes in the document class.
 
+## v1.10 - 2026-11-04
+
+### Breaking Changes
+
+- The default float placement for figures and tables has changed from `H`
+  to `htbp`. LaTeX may now move a float to the top or bottom of a page, or onto
+  a page of floats, instead of always printing it exactly where it appears in
+  the source. Page breaks, page numbers and the List of Figures/Tables may change,
+  so check your layout after updating.
+  
+  To keep the previous behavior, add this to your preamble:
+
+  ```latex
+  \floatplacement{figure}{H}
+  \floatplacement{table}{H}
+  ```
+- The class now sets the `float/here` tagging option, so every float is tagged
+  where it appears in the source, regardless of its placement. 
+  See [About Floats](README.md#about-floats) for details.
+- The class now requires LaTeX release 2026-06-01 or later (TeX Live 2026 with
+  up to date packages), which added the `float/here` option.
+
 ## v1.9 - 2026-10-21
 
 ### Other Changes

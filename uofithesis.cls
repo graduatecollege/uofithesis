@@ -1,5 +1,5 @@
-\NeedsTeXFormat{LaTeX2e}[2025/11/01]
-\ProvidesClass{uofithesis}[2026/10/21 v1.9 University of Illinois Graduate College Dissertation/Thesis Class]
+\NeedsTeXFormat{LaTeX2e}[2026/06/01]
+\ProvidesClass{uofithesis}[2026/11/04 v1.10 University of Illinois Graduate College Dissertation/Thesis Class]
 
 \LoadClass[letterpaper,12pt,oneside]{article}
 
@@ -16,8 +16,10 @@
 \let\CheckCommand\thesis@CheckCommand
 \RequirePackage{float}
 
-\floatplacement{figure}{H}
-\floatplacement{table}{H}
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+% Tag floats where they appear in the source instead of moving them to the end
+\IfDocumentMetadataTF{\IfFormatAtLeastTF{2026-06-01}{\tagpdfsetup{float/here}}{}}{}
 % setspace doesn't work with H placement, so we manually set the line spacing
 \g@addto@macro\@floatboxreset{\def\baselinestretch{\setspace@singlespace}\normalsize}
 

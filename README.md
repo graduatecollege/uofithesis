@@ -73,7 +73,8 @@ This template requires an up to date TeX installation, recommended to be
 ### Installing TeX Live
 
 Install the **latest available version of TeX Live** for your platform. It
-must be at least TeX Live 2025 with up to date packages.
+must be at least TeX Live 2026 with up to date packages (LaTeX release
+2026-06-01 or later).
 
 If you already have TeX Live installed, make sure it's fully up to date using
 _TeX Live Manager GUI_, _TeX Live Utility_ or the `tlmgr` command line tool.
@@ -468,26 +469,42 @@ impossible to make LaTeX Tagging do anything else.
 
 ### About Floats
 
-The LaTeX Tagging system does not currently fully support floats, so most float
-environments are in the wrong order in the underlying PDF structure. That makes
-it hard for assistive technologies to read them in the correct order. The best
-way to mitigate this is to use the `H` float specifier from the `float` package,
-which places the float "here" and tags it in the correct order in the PDF structure.
+LaTeX has various ways of placing "floating" elements (e.g. figures and tables)
+within a document, which is controlled by float modifiers like `[htbp]`. LaTeX
+will then flow other content around the element based on the modifier.
 
-The `uofithesis` class includes `float` and sets `H` as the default placement
-for figures and tables, so you can just use `\begin{figure}` and `\begin{table}`.
+`uofithesis` sets `htbp` as the default modifier, which means it will be placed
+in the first place it fits: here, top, bottom or page.
 
-If you need to use other float specifiers, be aware that the PDF structure will
-not match the visual order of the document.
+> [!NOTE]
+> Before v1.10, the default was `H`, which will always place it "here" and make
+> any room necessary to do so. Updates to the LaTeX Tagging Project has made
+> `htbp` a viable option, and is the new default as it is more commonly used.
+
+You can set the default float placement according to your preference in your
+preamble, for example:
+
+```latex
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+```
+
+#### Floats and Accessibility
+
+By default, LaTeX places all floats for assistive technology at the end of the
+entire document. That is problematic because it makes it very difficult to
+examine the figures or tables when reading the document.
+
+`uofithesis` sets an option for `float/here` in the LaTeX Tagging setup. This
+changes the placement of the floats for assistive technology to always be
+in the same places as they are in the TeX source.
+
+You can read more about these float options in the 
+[latex-lab-floats package documentation](https://tug.ctan.org/macros/latex/required/latex-lab/latex-lab-float.pdf).
 
 > [!NOTE]
 > Previous versions of this template used `\tagstructbegin` and `\tagstructend`
 > to manually wrap floats with `Part` elements. This is no longer necessary.
-
-> [!WARNING]
-> Figures inside `H` floats still have issues with the order of the elements,
-> so VeraPDF will alert that the document is not fully compliant with PDF/UA-2.
-> See [Current float defaults fail PDF/UA2](https://github.com/graduatecollege/uofithesis/issues/30) for discussion.
 
 ### Provide Meaningful Alt Text
 
